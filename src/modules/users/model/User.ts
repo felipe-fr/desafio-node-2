@@ -16,6 +16,9 @@ class User {
     this.id = uuidV4()
     this.admin = false
   }
+  turn_admin(){
+    this.admin = true
+  }
 }
 
 export { User };
