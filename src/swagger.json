@@ -1,0 +1,132 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Users Documentation",
+        "description": "This is an API that create and list users",
+        "version": "1.0.0"
+    },
+    "paths":{
+
+        "/users":{
+            "post":{
+                "tags": ["users"],
+                "summary": "Create a user",
+                "description": "Create a new user if the email is not already using",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties":{
+                                    "name":{
+                                        "type":"string"
+                                    },
+                                    "email":{
+                                        "type":"string"
+                                    }
+
+                                },
+                                "example":{
+                                    "name": "Joãozinho",
+                                    "email":"joaozinhobrabo@joao.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201": {
+                        "description": "created"
+                    },
+                    "400":{
+                        "description": "email already exists"
+                    }
+                }
+            },
+            "get":{
+                "tags": ["users"],
+                "summary": "list users",
+                "description": "List all users if you are a admin member",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "header",
+                        "description": "Admin user id",
+                        "required": true,
+                        "schema": {
+                          "items": {
+                            "type": "string"
+                          }
+                    }
+                }
+                ],
+                "responses":{
+                    "200": {
+                        "description": "Users"
+                    },
+                    "400":{
+                        "description": "You are not a admin"
+                    }
+                }
+            }
+
+        },
+        "/users/{user_id}":{
+            "get":{
+                "tags": ["user"],
+                "summary": "list user",
+                "description": "List a select user if the user exists",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "user id",
+                        "required": true,
+                        "schema": {
+                          "items": {
+                            "type": "string"
+                          }
+                    }
+                }
+                ],
+                "responses":{
+                    "200": {
+                        "description": "User"
+                    },
+                    "400":{
+                        "description": "User Does no exists"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/admin":{
+            "patch":{
+                "tags": ["user"],
+                "summary": "change user to admin",
+                "description": "change a select user to admin if the user exists",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "user id",
+                        "required": true,
+                        "schema": {
+                          "items": {
+                            "type": "string"
+                          }
+                    }
+                }
+                ],
+                "responses":{
+                    "200": {
+                        "description": "User"
+                    },
+                    "400":{
+                        "description": "User Does no exists"
+                    }
+                }
+            }
+        }
+    }
+
+}
